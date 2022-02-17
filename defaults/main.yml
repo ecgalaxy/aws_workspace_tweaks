@@ -1,0 +1,2 @@
+---
+aws_restart_ssm_script_path: "/usr/lib/systemd/system-sleep/99-ws-resume-ssm.sh"
