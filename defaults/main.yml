@@ -1,2 +1,4 @@
 ---
-aws_restart_ssm_script_path: "/usr/lib/systemd/system-sleep/99-ws-resume-ssm.sh"
+aws_ssm_agent_restart_script_path: "/usr/lib/systemd/system-sleep/99-ws-resume-ssm.sh"
+aws_ssm_agent_mds_command_retry_limit: 5
+aws_ssm_agent_agent_self_update: true

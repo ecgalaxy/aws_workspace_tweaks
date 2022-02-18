@@ -6,7 +6,7 @@
   tasks:
     - name: Stat SSM agent restart script
       stat:
-        path: "{{ aws_restart_ssm_script_path }}"
+        path: "{{ aws_ssm_agent_restart_script_path }}"
       register: file
     - name: Assert SSM agent restart script
       assert:
@@ -14,5 +14,17 @@
           - "file.stat.exists"
           - "file.stat.isreg"
           - "file.stat.mode == '0755'"
+          - "file.stat.pw_name == 'root'"
+          - "file.stat.gr_name == 'root'"
+    - name: Stat SSM agent configuration
+      stat:
+        path: /etc/amazon/ssm/amazon-ssm-agent.json
+      register: file
+    - name: Assert SSM agent configuration
+      assert:
+        that:
+          - "file.stat.exists"
+          - "file.stat.isreg"
+          - "file.stat.mode == '0644'"
           - "file.stat.pw_name == 'root'"
           - "file.stat.gr_name == 'root'"

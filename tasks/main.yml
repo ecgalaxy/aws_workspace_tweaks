@@ -2,8 +2,26 @@
 - name: Copy SSM agent restart script
   copy:
     src: 99-ws-resume-ssm.sh
-    dest: "{{ aws_restart_ssm_script_path }}"
+    dest: "{{ aws_ssm_agent_restart_script_path }}"
     owner: root
     group: root
     mode: u=rwx,g=rx,o=rx
+  become: true
+
+- name: Ensure SSM agent configuration directory exists
+  file:
+    path: /etc/amazon/ssm
+    state: directory
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+  become: true
+
+- name: Create SSM agent configuration
+  template:
+    src: amazon-ssm-agent.json.j2
+    dest: /etc/amazon/ssm/amazon-ssm-agent.json
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
   become: true
