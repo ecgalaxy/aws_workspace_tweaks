@@ -28,3 +28,4 @@
           - "file.stat.mode == '0644'"
           - "file.stat.pw_name == 'root'"
           - "file.stat.gr_name == 'root'"
+      when: aws_ssm_agent_update_configuration

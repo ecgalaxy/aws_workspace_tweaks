@@ -16,6 +16,7 @@
     group: root
     mode: u=rwx,g=rx,o=rx
   become: true
+  when: aws_ssm_agent_update_configuration
 
 - name: Create SSM agent configuration
   template:
@@ -25,3 +26,4 @@
     group: root
     mode: u=rw,g=r,o=r
   become: true
+  when: aws_ssm_agent_update_configuration
