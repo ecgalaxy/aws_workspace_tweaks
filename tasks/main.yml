@@ -1,6 +1,6 @@
 ---
 - name: Copy SSM agent restart script
-  copy:
+  ansible.builtin.copy:
     src: 99-ws-resume-ssm.sh
     dest: "{{ aws_ssm_agent_restart_script_path }}"
     owner: root
@@ -9,7 +9,7 @@
   become: true
 
 - name: Ensure SSM agent configuration directory exists
-  file:
+  ansible.builtin.file:
     path: /etc/amazon/ssm
     state: directory
     owner: root
@@ -19,7 +19,7 @@
   when: aws_ssm_agent_update_configuration
 
 - name: Create SSM agent configuration
-  template:
+  ansible.builtin.template:
     src: amazon-ssm-agent.json.j2
     dest: /etc/amazon/ssm/amazon-ssm-agent.json
     owner: root

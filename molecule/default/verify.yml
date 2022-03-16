@@ -5,11 +5,11 @@
     - ../../defaults/main.yml
   tasks:
     - name: Stat SSM agent restart script
-      stat:
+      ansible.builtin.stat:
         path: "{{ aws_ssm_agent_restart_script_path }}"
       register: file
     - name: Assert SSM agent restart script
-      assert:
+      ansible.builtin.assert:
         that:
           - "file.stat.exists"
           - "file.stat.isreg"
@@ -17,11 +17,11 @@
           - "file.stat.pw_name == 'root'"
           - "file.stat.gr_name == 'root'"
     - name: Stat SSM agent configuration
-      stat:
+      ansible.builtin.stat:
         path: /etc/amazon/ssm/amazon-ssm-agent.json
       register: file
     - name: Assert SSM agent configuration
-      assert:
+      ansible.builtin.assert:
         that:
           - "file.stat.exists"
           - "file.stat.isreg"
