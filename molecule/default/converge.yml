@@ -1,6 +1,8 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    aws_workspace_tweaks_user: ansible
   tasks:
     - name: Include aws_workspace_tweaks
       ansible.builtin.include_role:

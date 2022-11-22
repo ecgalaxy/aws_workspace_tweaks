@@ -1,0 +1,43 @@
+---
+
+- name: Retrieve user home directory for {{ aws_workspace_tweaks_user }}
+  ansible.builtin.user:
+    name: "{{ aws_workspace_tweaks_user }}"
+    state: present
+  register: certificate_user_register
+
+- name: Set facts user home directory for {{ aws_workspace_tweaks_user }}
+  ansible.builtin.set_fact:
+    user_home_dir: "{{ certificate_user_register.home }}"
+    user: "{{ aws_workspace_tweaks_user }}"
+    group: "{{ aws_workspace_tweaks_user }}"
+
+- name: "Firefox: look for imported CommisSign certificate."
+  ansible.builtin.command: |
+    bash -c "
+    for certDB in $(find \"{{ user_home_dir }}/.mozilla\" -iname \"cert9.db\"); do
+      certDir=$(dirname ${certDB});
+      found=$(certutil -L -d sql:${certDir} | grep "CommisSign-2" | wc -l)
+      if [[ $found -eq 0 ]]; then
+        exit 1
+      fi
+    done"
+  changed_when: false
+  register: firefox_import_result
+- name: Assert that certificate was imported in Firefox.
+  assert:
+    that:
+    - firefox_import_result.rc == 0
+- name: "Chrome: look for imported CommisSign certificate."
+  ansible.builtin.command: |
+    bash -c "
+    found=$(certutil -L -d sql:{{ user_home_dir }}/.pki/nssdb | grep "CommisSign-2" | wc -l)
+    if [[ $found -eq 0 ]]; then
+      exit 1
+    fi"
+  changed_when: false
+  register: chrome_import_result
+- name: Assert that certificate was imported in Chrome.
+  assert:
+    that:
+    - chrome_import_result.rc == 0

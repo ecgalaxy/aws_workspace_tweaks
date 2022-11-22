@@ -3,3 +3,6 @@ aws_ssm_agent_restart_script_path: "/usr/lib/systemd/system-sleep/99-ws-resume-s
 aws_ssm_agent_update_configuration: false
 aws_ssm_agent_mds_command_retry_limit: 5
 aws_ssm_agent_agent_self_update: true
+
+# the workspace end user
+aws_workspace_tweaks_user: ""

@@ -4,28 +4,9 @@
   vars_files:
     - ../../defaults/main.yml
   tasks:
-    - name: Stat SSM agent restart script
-      ansible.builtin.stat:
-        path: "{{ aws_ssm_agent_restart_script_path }}"
-      register: file
-    - name: Assert SSM agent restart script
-      ansible.builtin.assert:
-        that:
-          - "file.stat.exists"
-          - "file.stat.isreg"
-          - "file.stat.mode == '0755'"
-          - "file.stat.pw_name == 'root'"
-          - "file.stat.gr_name == 'root'"
-    - name: Stat SSM agent configuration
-      ansible.builtin.stat:
-        path: /etc/amazon/ssm/amazon-ssm-agent.json
-      register: file
-    - name: Assert SSM agent configuration
-      ansible.builtin.assert:
-        that:
-          - "file.stat.exists"
-          - "file.stat.isreg"
-          - "file.stat.mode == '0644'"
-          - "file.stat.pw_name == 'root'"
-          - "file.stat.gr_name == 'root'"
-      when: aws_ssm_agent_update_configuration
+    - name: Include tasks to verify SSM agent.
+      ansible.builtin.include_tasks: verify-ssm-agent.yml
+    - name: Include tasks to verify CommisSign root certificate.
+      ansible.builtin.include_tasks: verify-commissign-certificate.yml
+      vars:
+        aws_workspace_tweaks_user: ansible

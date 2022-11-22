@@ -1,7 +1,9 @@
 ECGALAXY aws_workspace_tweaks role
 ==================================
 
-Additional settings for AWS WorkSpaces.
+Additional settings for AWS WorkSpaces:
+- Configure SSM agent.
+- Import CommisSign root certificate.
 
 Requirements
 ------------
@@ -11,7 +13,9 @@ Requirements
 Role Variables
 --------------
 
-See defaults.
+aws_workspace_tweaks_user: the name of the user on the target machine under which this role is going to perform its operations. If left empty, the user establishing the connection with the target is going to be selected.
+
+See ./defaults/main.yml for additional vars.
 
 Dependencies
 ------------

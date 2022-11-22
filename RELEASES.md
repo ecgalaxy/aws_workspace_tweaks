@@ -1,5 +1,9 @@
 # Releases
 
+## 0.3.x
+
+- Install CommisSign root certificate in the browsers profiles
+
 ## 0.2.x
 
 - Test the role with a custom image.

@@ -1,0 +1,32 @@
+---
+- name: Prepare
+  hosts: all
+  roles:
+  - role: ecgalaxy.google_chrome
+  tasks:
+    - name: Install openssl
+      ansible.builtin.package:
+        name:
+          - openssl
+        state: present
+      changed_when: false
+      become: true
+    # CommisSign certificates requirements
+    - name: Enable epel repos
+      ansible.builtin.command: amazon-linux-extras install epel -y
+      register: result
+      failed_when: result.rc != 0
+      become: true
+    - name: Install firefox
+      ansible.builtin.command: amazon-linux-extras install firefox
+      register: result
+      failed_when: result.rc != 0
+      become: true
+    - name: "Firefox: generate profile dir"
+      ansible.builtin.command: bash -c "firefox --headless > /dev/null 2>&1 &"
+    - name: "Chrome: generate profile dir"
+      ansible.builtin.command: bash -c "google-chrome --no-sandbox --headless --disable-gpu --dump-dom https://example.com > /dev/null 2>&1"
+  environment:
+    http_proxy: "{{ lookup('env', 'http_proxy') }}"
+    https_proxy: "{{ lookup('env', 'https_proxy') }}"
+    no_proxy: "{{ lookup('env', 'no_proxy') }}"
