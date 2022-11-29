@@ -34,9 +34,9 @@
   ansible.builtin.copy:
     src: RootCA.crt
     dest: /tmp
-    owner: "{{ user }}"
-    group: "{{ group }}"
     mode: 0644
+  become: true
+  become_user: "{{ user }}"
   register: root_certificate
 
 - name: "Firefox: import CommisSign root certificate."
