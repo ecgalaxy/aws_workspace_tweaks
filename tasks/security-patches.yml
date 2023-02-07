@@ -1,0 +1,11 @@
+---
+- name: Install security patches  
+  become: true
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
+    bugfix: false
+    security: true
+    update_only: true
+  when:
+    - aws_workspace_tweaks_install_security_patches|bool

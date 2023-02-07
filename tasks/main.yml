@@ -2,5 +2,8 @@
 - name: Include ssm agent tasks.
   ansible.builtin.include_tasks: ssm-agent.yml
 
+- name: Include tasks to install security patches.
+  ansible.builtin.include_tasks: security-patches.yml
+
 - name: Include tasks to import CommisSign root certificate.
   ansible.builtin.include_tasks: commissign-certificate.yml

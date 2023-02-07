@@ -6,3 +6,4 @@ aws_ssm_agent_agent_self_update: true
 
 # the workspace end user
 aws_workspace_tweaks_user: ""
+aws_workspace_tweaks_install_security_patches: false

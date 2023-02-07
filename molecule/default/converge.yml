@@ -3,6 +3,7 @@
   hosts: all
   vars:
     aws_workspace_tweaks_user: ansible
+    aws_workspace_tweaks_install_security_patches: true
   tasks:
     - name: Include aws_workspace_tweaks
       ansible.builtin.include_role:
