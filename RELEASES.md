@@ -1,8 +1,12 @@
 # Releases
 
+## 0.4.x
+
+- Added option to apply security updates during execution of the role (see README).
+
 ## 0.3.x
 
-- Install CommisSign root certificate in the browsers profiles
+- Install CommisSign root certificate in the browsers profiles.
 
 ## 0.2.x
 
