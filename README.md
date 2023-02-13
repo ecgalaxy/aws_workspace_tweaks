@@ -13,7 +13,7 @@ Requirements
 Role Variables
 --------------
 
-- aws_workspace_tweaks_install_security_patches: boolean which can be set to true or false to define if ALAS2/CVS security patches needs to be installed.(default false)
+- aws_workspace_tweaks_apply_security_updates: boolean which can be set to true or false to define if ALAS2/CVS security updates needs to be applied.(default false)
 - aws_workspace_tweaks_user: the name of the user on the target machine under which this role is going to perform its operations. If left empty, the user establishing the connection with the target is going to be selected.
 
 See ./defaults/main.yml for additional vars.

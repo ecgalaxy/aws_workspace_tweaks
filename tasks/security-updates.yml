@@ -1,5 +1,5 @@
 ---
-- name: Install security patches  
+- name: Apply security updates
   become: true
   ansible.builtin.yum:
     name: '*'
@@ -8,4 +8,4 @@
     security: true
     update_only: true
   when:
-    - aws_workspace_tweaks_install_security_patches|bool
+    - aws_workspace_tweaks_apply_security_updates|bool
