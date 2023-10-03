@@ -24,11 +24,15 @@
   ansible.builtin.stat:
     path: "{{ user_home_dir }}/.mozilla"
   register: firefox_profile
+  become: true
+  become_user: "{{ user }}"
 
 - name: "Chrome: check if certificates db exists" 
   ansible.builtin.stat:
     path: "{{ user_home_dir }}/.pki/nssdb"
   register: chrome_certificate_db
+  become: true
+  become_user: "{{ user }}"
 
 - name: Copy CommisSign root certificate on the target.
   ansible.builtin.copy:
